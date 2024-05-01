@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "667437129163",
+    "project_id": "android-tifr",
+    "storage_bucket": "android-tifr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667437129163:android:fc5a244b529074be4eaa4e",
+        "android_client_info": {
+          "package_name": "org.snowcorp.login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTt6JORJe_1Y-z8kT0E-1iBjQls2pMVlo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
