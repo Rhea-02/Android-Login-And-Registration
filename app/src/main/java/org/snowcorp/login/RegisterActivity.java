@@ -21,11 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * Created by Akshay Raj on 6/16/2016.
- * akshay@snowcorp.org
- * www.snowcorp.org
- */
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
@@ -36,13 +31,13 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_permission);
 
-        inputName = findViewById(R.id.edit_name);
-        inputEmail = findViewById(R.id.edit_email);
-        inputPassword = findViewById(R.id.edit_password);
-        btnRegister = findViewById(R.id.button_register);
-        btnLinkToLogin = findViewById(R.id.button_login);
+        inputName = findViewById(R.id.editTextName);
+        inputEmail = findViewById(R.id.editTextEmail);
+//        inputPassword = findViewById(R.id.editTextPassword);
+//        btnRegister = findViewById(R.id.button_register);
+//        btnLinkToLogin = findViewById(R.id.button_login);
 
         // Hide Keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -88,39 +83,39 @@ public class RegisterActivity extends AppCompatActivity {
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.REGISTER_URL, response -> {
-                    Log.d(TAG, "Register Response: " + response);
-                    hideDialog();
+            Log.d(TAG, "Register Response: " + response);
+            hideDialog();
 
-                    try {
-                        JSONObject jObj = new JSONObject(response);
-                        boolean error = jObj.getBoolean("error");
-                        if (!error) {
-                            Functions logout = new Functions();
-                            logout.logoutUser(getApplicationContext());
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
+                if (!error) {
+                    Functions logout = new Functions();
+                    logout.logoutUser(getApplicationContext());
 
-                            Bundle b = new Bundle();
-                            b.putString("email", email);
-                            Intent i = new Intent(RegisterActivity.this, EmailVerify.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            i.putExtras(b);
-                            startActivity(i);
-                            finish();
+                    Bundle b = new Bundle();
+                    b.putString("email", email);
+                    Intent i = new Intent(RegisterActivity.this, EmailVerify.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.putExtras(b);
+                    startActivity(i);
+                    finish();
 
-                        } else {
-                            // Error occurred in registration. Get the error
-                            // message
-                            String errorMsg = jObj.getString("message");
-                            Toast.makeText(getApplicationContext(),errorMsg, Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                } else {
+                    // Error occurred in registration. Get the error
+                    // message
+                    String errorMsg = jObj.getString("message");
+                    Toast.makeText(getApplicationContext(),errorMsg, Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-                }, error -> {
-                    Log.e(TAG, "Registration Error: " + error.getMessage(), error);
-                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                    hideDialog();
-                }) {
+        }, error -> {
+            Log.e(TAG, "Registration Error: " + error.getMessage(), error);
+            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            hideDialog();
+        }) {
 
             @Override
             protected Map<String, String> getParams() {

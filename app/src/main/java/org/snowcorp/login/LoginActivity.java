@@ -29,11 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * Created by Akshay Raj on 6/16/2016.
- * akshay@snowcorp.org
- * www.snowcorp.org
- */
+
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -73,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
+
+
         // Hide Keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -104,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Link to Register Screen
         btnLinkToRegister.setOnClickListener(view -> {
-            Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+            Intent i = new Intent(LoginActivity.this, PermissionActivity.class);
             startActivity(i);
         });
 
@@ -175,57 +173,57 @@ public class LoginActivity extends AppCompatActivity {
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.LOGIN_URL, response -> {
-                    Log.d(TAG, "Login Response: " + response);
-                    hideDialog();
+            Log.d(TAG, "Login Response: " + response);
+            hideDialog();
 
-                    try {
-                        JSONObject jObj = new JSONObject(response);
-                        boolean error = jObj.getBoolean("error");
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
 
-                        // Check for error node in json
-                        if (!error) {
-                            // user successfully logged in
-                            JSONObject json_user = jObj.getJSONObject("user");
+                // Check for error node in json
+                if (!error) {
+                    // user successfully logged in
+                    JSONObject json_user = jObj.getJSONObject("user");
 
-                            Functions logout = new Functions();
-                            logout.logoutUser(getApplicationContext());
+                    Functions logout = new Functions();
+                    logout.logoutUser(getApplicationContext());
 
-                            if(Integer.parseInt(json_user.getString("verified")) == 1){
-                                db.addUser(json_user.getString(KEY_UID), json_user.getString(KEY_NAME),
-                                        json_user.getString(KEY_EMAIL), json_user.getString(KEY_CREATED_AT));
+                    if(Integer.parseInt(json_user.getString("verified")) == 1){
+                        db.addUser(json_user.getString(KEY_UID), json_user.getString(KEY_NAME),
+                                json_user.getString(KEY_EMAIL), json_user.getString(KEY_CREATED_AT));
 
-                                Intent upanel = new Intent(LoginActivity.this, HomeActivity.class);
-                                upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(upanel);
+                        Intent upanel = new Intent(LoginActivity.this, HomeActivity.class);
+                        upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(upanel);
 
-                                session.setLogin(true);
-                            } else {
-                                Bundle b = new Bundle();
-                                b.putString("email", email);
+                        session.setLogin(true);
+                    } else {
+                        Bundle b = new Bundle();
+                        b.putString("email", email);
 
-                                Intent upanel = new Intent(LoginActivity.this, EmailVerify.class);
-                                upanel.putExtras(b);
-                                upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(upanel);
-                            }
-                            finish();
-
-                        } else {
-                            // Error in login. Get the error message
-                            String errorMsg = jObj.getString("message");
-                            Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        // JSON error
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Intent upanel = new Intent(LoginActivity.this, EmailVerify.class);
+                        upanel.putExtras(b);
+                        upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(upanel);
                     }
+                    finish();
 
-                }, error -> {
-                    Log.e(TAG, "Login Error: " + error.getMessage());
-                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                    hideDialog();
-                }) {
+                } else {
+                    // Error in login. Get the error message
+                    String errorMsg = jObj.getString("message");
+                    Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                // JSON error
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        }, error -> {
+            Log.e(TAG, "Login Error: " + error.getMessage());
+            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            hideDialog();
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
@@ -249,25 +247,25 @@ public class LoginActivity extends AppCompatActivity {
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.RESET_PASS_URL, response -> {
-                    Log.d(TAG, "Reset Password Response: " + response);
-                    hideDialog();
+            Log.d(TAG, "Reset Password Response: " + response);
+            hideDialog();
 
-                    try {
-                        JSONObject jObj = new JSONObject(response);
+            try {
+                JSONObject jObj = new JSONObject(response);
 
-                        Toast.makeText(getApplicationContext(), jObj.getString("message"), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), jObj.getString("message"), Toast.LENGTH_LONG).show();
 
-                    } catch (JSONException e) {
-                        // JSON error
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+            } catch (JSONException e) {
+                // JSON error
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
 
-                }, error -> {
-                    Log.e(TAG, "Reset Password Error: " + error.getMessage());
-                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                    hideDialog();
-                }) {
+        }, error -> {
+            Log.e(TAG, "Reset Password Error: " + error.getMessage());
+            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            hideDialog();
+        }) {
 
             @Override
             protected Map<String, String> getParams() {

@@ -31,11 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * Created by Akshay Raj on 6/16/2016.
- * akshay@snowcorp.org
- * www.snowcorp.org
- */
 
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = HomeActivity.class.getSimpleName();
@@ -166,21 +161,21 @@ public class HomeActivity extends AppCompatActivity {
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.RESET_PASS_URL, response -> {
-                    Log.d(TAG, "Reset Password Response: " + response);
-                    hideDialog();
-    
-                    try {
-                        JSONObject jObj = new JSONObject(response);
+            Log.d(TAG, "Reset Password Response: " + response);
+            hideDialog();
 
-                        Toast.makeText(HomeActivity.this, jObj.getString("message"), Toast.LENGTH_LONG).show();
+            try {
+                JSONObject jObj = new JSONObject(response);
 
-                    } catch (JSONException e) {
-                        // JSON error
-                        e.printStackTrace();
-                        Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-    
-                }, error -> {
+                Toast.makeText(HomeActivity.this, jObj.getString("message"), Toast.LENGTH_LONG).show();
+
+            } catch (JSONException e) {
+                // JSON error
+                e.printStackTrace();
+                Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        }, error -> {
             Log.e(TAG, "Reset Password Error: " + error.getMessage());
             Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
             hideDialog();

@@ -28,11 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Akshay Raj on 06-02-2017.
- * akshay@snowcorp.org
- * www.snowcorp.org
- */
+
 public class EmailVerify extends AppCompatActivity {
     private static final String TAG = EmailVerify.class.getSimpleName();
 
@@ -125,37 +121,37 @@ public class EmailVerify extends AppCompatActivity {
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.OTP_VERIFY_URL, response -> {
-                    Log.d(TAG, "Verification Response: " + response);
-                    hideDialog();
+            Log.d(TAG, "Verification Response: " + response);
+            hideDialog();
 
-                    try {
-                        JSONObject jObj = new JSONObject(response);
-                        boolean error = jObj.getBoolean("error");
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
 
-                        // Check for error node in json
-                        if (!error) {
-                            JSONObject json_user = jObj.getJSONObject("user");
+                // Check for error node in json
+                if (!error) {
+                    JSONObject json_user = jObj.getJSONObject("user");
 
-                            Functions logout = new Functions();
-                            logout.logoutUser(getApplicationContext());
-                            db.addUser(json_user.getString(KEY_UID), json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_CREATED_AT));
-                            session.setLogin(true);
-                            Intent upanel = new Intent(EmailVerify.this, HomeActivity.class);
-                            upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(upanel);
-                            finish();
+                    Functions logout = new Functions();
+                    logout.logoutUser(getApplicationContext());
+                    db.addUser(json_user.getString(KEY_UID), json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_CREATED_AT));
+                    session.setLogin(true);
+                    Intent upanel = new Intent(EmailVerify.this, HomeActivity.class);
+                    upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(upanel);
+                    finish();
 
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Invalid Verification Code", Toast.LENGTH_LONG).show();
-                            textVerifyCode.setError("Invalid Verification Code");
-                        }
-                    } catch (JSONException e) {
-                        // JSON error
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Invalid Verification Code", Toast.LENGTH_LONG).show();
+                    textVerifyCode.setError("Invalid Verification Code");
+                }
+            } catch (JSONException e) {
+                // JSON error
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
 
-                }, error -> {
+        }, error -> {
             Log.e(TAG, "Verify Code Error: " + error.getMessage());
             Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
             hideDialog();
@@ -193,28 +189,28 @@ public class EmailVerify extends AppCompatActivity {
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.OTP_VERIFY_URL, response -> {
-                    Log.d(TAG, "Resend Code Response: " + response);
-                    hideDialog();
+            Log.d(TAG, "Resend Code Response: " + response);
+            hideDialog();
 
-                    try {
-                        JSONObject jObj = new JSONObject(response);
-                        boolean error = jObj.getBoolean("error");
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
 
-                        // Check for error node in json
-                        if (!error) {
-                            Toast.makeText(getApplicationContext(), "Code successfully sent to your email!", Toast.LENGTH_LONG).show();
-                            btnResend.setEnabled(false);
-                            countDown();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Code sending failed!", Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        // JSON error
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                // Check for error node in json
+                if (!error) {
+                    Toast.makeText(getApplicationContext(), "Code successfully sent to your email!", Toast.LENGTH_LONG).show();
+                    btnResend.setEnabled(false);
+                    countDown();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Code sending failed!", Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                // JSON error
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
 
-                }, error -> {
+        }, error -> {
             Log.e(TAG, "Resend Code Error: " + error.getMessage());
             Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
             hideDialog();
