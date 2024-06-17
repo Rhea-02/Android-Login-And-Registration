@@ -3,27 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="10dp"
+    android:weightSum="3">
 
     <TextView
         android:id="@+id/text_email"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="16sp" />
 
-    <ImageButton
-        android:id="@+id/button_approve"
+    <TextView
+        android:id="@+id/text_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:src="@drawable/tick_24" /> <!-- replace with your green tick mark icon -->
+        android:visibility="gone"
+        android:textSize="16sp" />
 
-    <ImageButton
+
+    <!-- <ImageButton
+         android:id="@+id/button_approve"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:background="@android:color/transparent"
+         android:src="@drawable/tick_24" />--> <!-- replace with your green tick mark icon -->
+
+    <Button
+        android:id="@+id/button_approve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textSize="12dp"
+        android:layout_weight="1"
+        android:text="Approve" />
+
+
+    <Button
+        android:id="@+id/button_reject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textSize="12dp"
+        android:layout_weight="1"
+        android:text="Reject" />
+
+    <!--<ImageButton
         android:id="@+id/button_reject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:src="@drawable/wrong_24" /> <!-- replace with your red cross mark icon -->
+        android:src="@drawable/wrong_24" />--> <!-- replace with your red cross mark icon -->
 
 </LinearLayout>

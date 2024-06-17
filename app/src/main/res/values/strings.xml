@@ -12,4 +12,50 @@
     <string name="change_password">Change Password</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_phone_no">Phone No.</string>
+    <string name="hint_affiliation">Affiliation</string>
+    <string name="hint_other_affiliation">Type your Affiliation here please</string>
+    <string name="hint_category">Category</string>
+    <string name="hint_country_code">Country code</string>
+    <string name="login_activity_label">Login Activity</string>
+    <string name="email_verify_activity_label">Email Verify Activity</string>
+    <string name="home_activity_label">Home Activity</string>
+    <string name="admin_panel">Admin Activity</string>
+    <string name="Username">Username</string>
+    <string name="datepicker_button_content_description">Enter Date</string>
+    <string name="scale_spinner_content_description">Pick your Scale</string>
+    <string name="datepicker_button_text">Enter Date</string>
+
+    <string-array name="country_codes_array">
+        <item>+1</item> <!-- USA -->
+        <item>+91</item> <!-- India -->
+        <!-- Add more country codes as needed -->
+    </string-array>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="scale_options">
+        <item>5 units</item>
+        <item>50 units</item>
+        <item>100 units</item>
+        <item>500 units</item>
+    </string-array>
+
+    <string-array name="alert_options">
+        <item>No alert</item>
+        <item>1500 units</item>
+        <item>2000 units</item>
+        <item>2500 units</item>
+    </string-array>
+
 </resources>
